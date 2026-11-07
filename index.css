@@ -1,0 +1,235 @@
+@import "tailwindcss";
+
+@theme {
+  --color-vacuum: #05070e;
+  --color-nebula: #0b1226;
+  --color-panel: #171a20;
+  --color-panel2: #22262e;
+  --color-hair: #3a4049;
+  --color-amber: #ffb43a;
+  --color-amberlt: #ffd27a;
+  --color-amberdk: #c97f16;
+  --color-silk: #a8a79c;
+  --color-legend: #8c8b7f;
+  --color-haz: #35e0d8;
+  --color-danger: #ff4a2f;
+
+  --font-display: "Chakra Petch", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+}
+
+/* Everything that may collide with a Tailwind utility lives in the base
+   layer so `text-*`, `px-*` etc. keep winning. */
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  html {
+    background: #05070e;
+  }
+
+  body {
+    margin: 0;
+    background: #05070e;
+    color: #a8a79c;
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* silkscreened panel legend */
+  .legend {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.26em;
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 600;
+    color: var(--color-legend);
+  }
+  .legend-sm {
+    letter-spacing: 0.2em;
+    font-size: 9px;
+    line-height: 1;
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  .panel-metal {
+    background-color: #171a20;
+    background-image: var(--panel-tex, none);
+    background-blend-mode: overlay;
+    background-size: 380px;
+    background-position: center;
+  }
+
+  .hairline {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(58, 64, 73, 0.9) 12%,
+      rgba(58, 64, 73, 0.9) 88%,
+      transparent
+    );
+  }
+
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.22;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .vignette {
+    background:
+      radial-gradient(120% 88% at 50% 42%, transparent 36%, rgba(5, 7, 14, 0.6) 100%),
+      linear-gradient(
+        180deg,
+        rgba(5, 7, 14, 0.62) 0%,
+        transparent 15%,
+        transparent 70%,
+        rgba(5, 7, 14, 0.8) 100%
+      );
+  }
+
+  .glow-amber {
+    text-shadow: 0 0 22px rgba(255, 180, 58, 0.45);
+  }
+
+  .tick-rail {
+    background-image: repeating-linear-gradient(
+      180deg,
+      rgba(58, 64, 73, 0.9) 0px,
+      rgba(58, 64, 73, 0.9) 1px,
+      transparent 1px,
+      transparent 13px
+    );
+  }
+
+  kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.9rem;
+    padding: 0.28rem 0.52rem;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: #ffd27a;
+    background: #1c2027;
+    border: 1px solid #3a4049;
+    border-bottom-width: 2px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  ::selection {
+    background: rgba(255, 180, 58, 0.28);
+  }
+}
+
+/* machined switch — intentionally unlayered so it owns its own surface */
+.switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 1rem 2.1rem;
+  background: linear-gradient(180deg, #ffc25c 0%, #f0a22f 48%, #d8871a 100%);
+  color: #1a1206;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 13px;
+  border: 1px solid #ffd27a;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -2px 0 rgba(120, 66, 6, 0.5),
+    0 10px 30px -10px rgba(255, 180, 58, 0.55);
+  transition:
+    transform 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 140ms;
+  cursor: pointer;
+  user-select: none;
+}
+.switch:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -2px 0 rgba(120, 66, 6, 0.5),
+    0 18px 42px -12px rgba(255, 180, 58, 0.75);
+}
+.switch:active {
+  transform: translateY(1px) scale(0.985);
+}
+.switch:focus-visible {
+  outline: 2px solid #35e0d8;
+  outline-offset: 3px;
+}
+
+.switch-ghost {
+  background: transparent;
+  color: #a8a79c;
+  border: 1px solid #3a4049;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.switch-ghost:hover {
+  background: rgba(58, 64, 73, 0.28);
+  border-color: #8c8b7f;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+@keyframes sweep {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1200%);
+    opacity: 0;
+  }
+}
+.sweep-line {
+  animation: sweep 6.5s linear infinite;
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.32;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.pulse-soft {
+  animation: pulse-soft 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweep-line,
+  .pulse-soft {
+    animation: none !important;
+  }
+  .switch {
+    transition: none;
+  }
+}
